@@ -1,3 +1,57 @@
+<!-- <form (ngSubmit)="logValue()">
+  <div class="container">
+    <div class="form-row" *ngFor="let filter of filterArray; let i = index ">
+
+      <div class="form-group col-md-4">
+
+        <select class="form-control" name="field{{i}}" [(ngModel)]="filter.field" (ngModelChange)="setFilterVal($event)">
+          <option *ngFor="let item of jsonData" value="{{item.searchField}}">{{item.searchField}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-4">
+        <select class="form-control" name="operator{{i}}" [(ngModel)]="filter.operation" >
+          <option *ngFor="let filterOp of filterParams" value="{{filterOp.Operator}}">{{filterOp.Operator}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-2">
+        <input type="text" class="form-control" [(ngModel)]="filter.value" name="value{{i}}" />
+      </div>
+      <div class="form-group col-md-2" *ngIf="i!=0">
+            <span (click)="removeFilter(i)" class="btn btn-danger">-</span>
+      </div>
+    </div>
+    <span (click)="addFilter()" class="btn btn-success">+</span>
+    <button class="btn btn-primary">Submit</button>
+  </div>
+</form> -->
+
+<form [formGroup]="addMore">
+  <div class="container" formArrayName="itemRows">
+    <div class="form-row" *ngFor="let itemrow of addMore.controls.itemRows['controls'];let i=index" [formGroupName]="i">
+
+      <div class="form-group col-md-4">
+
+        <select class="form-control" id="filter{{i}}" formControlName="filter" (ngModelChange)="setFilterVal($event)">
+          <option *ngFor="let item of jsonData" value="{{item.searchField}}">{{item.searchField}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-4">
+        <select class="form-control" id="operation{{i}}" formControlName="operation">
+          <option *ngFor="let filterOp of filterParams" value="{{filterOp.Operator}}">{{filterOp.Operator}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-2">
+        <input type="text" class="form-control" formControlName="value" id="value{{i}}" />
+      </div>
+      <div class="form-group col-md-2" *ngIf="addMore.controls.itemRows['controls'].length > 1">
+        <span (click)="removeFilter(i)" class="btn btn-danger">-</span>
+      </div>
+    </div>
+    <span (click)="addFilter()" class="btn btn-success">+</span>
+    <button (click)="logValue()" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+
 <ag-grid-angular
 style="height: 1000px;width: 100%;"
 class="ag-theme-balham"
