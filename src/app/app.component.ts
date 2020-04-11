@@ -50,7 +50,6 @@ export class AppComponent implements OnInit {
 
     onSelectField(field,i) {
         if(field){
-
             this.fields[i].field = field.searchField;
         }
     }
@@ -90,12 +89,15 @@ export class AppComponent implements OnInit {
 
      // END FROM HERE
 
+     printData() {
+         console.log(this.addMore.value);
+         
+     }
 
     onGridReady(param) {
         this.gridApi = param.api;
         this.gridColumnApi = param.columnApi;
-        this.http.get('http://localhost:3000/athletes').subscribe(data =>{
-        // this.http.get('https://raw.githubusercontent.com/ag-grid/ag-grid-docs/master/src/olympicWinnersSmall.json').subscribe(data => {
+        this.http.get('https://my-json-server.typicode.com/ladaniavadh/ag-grid-demo/athletes').subscribe(data =>{
             param.api.setRowData(data);
         });
     }

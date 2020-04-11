@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="form-group col-md-2">
-                        <input type="text" class="form-control" id="value-{{i}}" formControlName="value" [(ngModel)]="fields[i].value" />
+                        <input type="{{fields[i]?.meta?.inputType}}" placeholder="{{fields[i]?.meta?.label}}" class="form-control" id="value-{{i}}" formControlName="value" [(ngModel)]="fields[i].value" />
                     </div>
                     <div class="form-group col-md-2">
                         <span (click)="removeFilter(itemrow,i)" class="btn btn-danger">-</span>
