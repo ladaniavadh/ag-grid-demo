@@ -1,5 +1,5 @@
 export class Filter {
   field: any;
-  operation: any;
+  option: any;
   value: any;
 }
