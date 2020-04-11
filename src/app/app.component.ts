@@ -73,14 +73,14 @@ export class AppComponent implements OnInit {
   logValue() {
     console.log(this.addMore.value);
   }
-ex
+
   setFilterVal(data) {
     console.log(data);
     // const val = data.target.value
     // const temp = _.find('fieldKey', {val});
     // console.log(temp);
 
-    const keyData = this.jsonData.filter(el => el.fieldKey === data)
+    const keyData = this.jsonData.find(el => el.fieldKey === data)
     this.filterParams = keyData.searchOperators
   }
 
