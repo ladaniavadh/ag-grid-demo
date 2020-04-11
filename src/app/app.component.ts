@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import * as archerJson from '../assets/ArcherConfig.json';
-import * as _ from 'lodash';
+import * as archerJson from './../assets/ArcherConfig.json'
 import { Filter } from './model/filter.model';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 @Component({
@@ -24,7 +23,8 @@ export class AppComponent implements OnInit {
     value: ''
   };
   filterArray:any = []
-
+  filterVal: any;
+  operatorVal: any;
   public addMore: FormGroup
   constructor(
     public http: HttpClient,
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
     console.log(archerConfig);
 
     this.jsonData = archerConfig.searchFieldGroup
-
+    this.filterVal = this.jsonData[0].searchField
   }
 
   initItemRows() {
@@ -60,6 +60,7 @@ export class AppComponent implements OnInit {
   onGridReady(param) {
     this.gridApi = param.api;
     this.gridColumnApi = param.columnApi;
+    // this.http.get('http://localhost:3000/athletes').subscribe(data =>{
     this.http.get('https://raw.githubusercontent.com/ag-grid/ag-grid-docs/master/src/olympicWinnersSmall.json').subscribe(data =>{
       param.api.setRowData(data);
     });
@@ -82,6 +83,7 @@ export class AppComponent implements OnInit {
 
     const keyData = this.jsonData.find(el => el.fieldKey === data)
     this.filterParams = keyData.searchOperators
+    this.operatorVal = this.filterParams[0].Operator
   }
 
   removeFilter(i: number) {

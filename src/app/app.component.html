@@ -26,42 +26,31 @@
 </form> -->
 
 <form [formGroup]="addMore">
-  <div class="container" formArrayName="itemRows">
-    <div class="form-row" *ngFor="let itemrow of addMore.controls.itemRows['controls'];let i=index" [formGroupName]="i">
+    <div class="container pt-3 pb-3" formArrayName="itemRows">
+        <div class="form-row" *ngFor="let itemrow of addMore.controls.itemRows['controls'];let i=index" [formGroupName]="i">
 
-      <div class="form-group col-md-4">
+            <div class="form-group col-md-4">
 
-        <select class="form-control" id="filter{{i}}" formControlName="filter" (ngModelChange)="setFilterVal($event)">
+                <select class="form-control" [(ngModel)]="filterVal" id="filter{{i}}" formControlName="filter" (ngModelChange)="setFilterVal($event)">
           <option *ngFor="let item of jsonData" value="{{item.searchField}}">{{item.searchField}}</option>
         </select>
-      </div>
-      <div class="form-group col-md-4">
-        <select class="form-control" id="operation{{i}}" formControlName="operation">
+            </div>
+            <div class="form-group col-md-4">
+                <select class="form-control" [(ngModel)]="operatorVal" id="operation{{i}}" formControlName="operation">
           <option *ngFor="let filterOp of filterParams" value="{{filterOp.Operator}}">{{filterOp.Operator}}</option>
         </select>
-      </div>
-      <div class="form-group col-md-2">
-        <input type="text" class="form-control" formControlName="value" id="value{{i}}" />
-      </div>
-      <div class="form-group col-md-2" *ngIf="addMore.controls.itemRows['controls'].length > 1">
-        <span (click)="removeFilter(i)" class="btn btn-danger">-</span>
-      </div>
+            </div>
+            <div class="form-group col-md-2">
+                <input type="text" class="form-control" formControlName="value" id="value{{i}}" />
+            </div>
+            <div class="form-group col-md-2" *ngIf="addMore.controls.itemRows['controls'].length > 1">
+                <span (click)="removeFilter(i)" class="btn btn-danger">-</span>
+            </div>
+        </div>
+        <span (click)="addFilter()" class="btn btn-success mr-2">+</span>
+        <button (click)="logValue()" class="btn btn-primary">Submit</button>
     </div>
-    <span (click)="addFilter()" class="btn btn-success">+</span>
-    <button (click)="logValue()" class="btn btn-primary">Submit</button>
-  </div>
 </form>
 
-<ag-grid-angular
-style="height: 1000px;width: 100%;"
-class="ag-theme-balham"
-
-  [enableSorting]="true"
-  [columnDefs]="columnDefs"
-  (gridReady)= "onGridReady($event)"
-  [enableFilter] = 'true'
-  [sortingOrder]= 'sortingOrder'
-  [pagination] = 'true'
-  [paginationPageSize] = 25
-  >
+<ag-grid-angular style="height: 750px;width: 100%;" class="ag-theme-balham" [enableSorting]="true" [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" [enableFilter]='true' [sortingOrder]='sortingOrder' [pagination]='true' [paginationPageSize]=25>
 </ag-grid-angular>
