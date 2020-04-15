@@ -11,14 +11,17 @@
                     </select>
                     </div>
                     <div class="form-group col-md-4">
-                        <select class="form-control" id="option-{{i}}" formControlName="option" [(ngModel)]="fields[i].option">
+                        <select class="form-control" id="option-{{i}}" formControlName="option" (ngModelChange)="onSelectOperator($event,i);" [(ngModel)]="fields[i].option">
                         <option value="null" selected="selected">Select Operator</option>
                         <option *ngFor="let option of fields[i]?.meta?.searchOperators" [ngValue]="option.Operator">{{option.Operator}}</option>
                     </select>
                     </div>
-
                     <div class="form-group col-md-2">
-                        <input type="{{fields[i]?.meta?.inputType}}" placeholder="{{fields[i]?.meta?.label}}" class="form-control" id="value-{{i}}" formControlName="value" [(ngModel)]="fields[i].value" />
+                        <input type="{{fields[i]?.meta?.inputType}}" placeholder="{{fields[i]?.meta?.label}}" max="{{fields[i]?.meta?.validationOptions?.max}}" pattern="{{fields[i]?.meta?.validationOptions?.pattern}}" class="form-control" id="value-{{i}}" formControlName="value"
+                            [(ngModel)]="fields[i].value" />
+                    </div>
+                    <div class="form-group col-md-2" *ngIf="fields[i].option === 'Betweens'">
+                        <input type="{{fields[i]?.meta?.inputType}}" placeholder="{{fields[i]?.meta?.label}}" class="form-control" id="value1-{{i}}" formControlName="value1" [(ngModel)]="fields[i].value1" />
                     </div>
                     <div class="form-group col-md-2">
                         <span (click)="removeFilter(itemrow,i)" class="btn btn-danger">-</span>
@@ -38,6 +41,7 @@
                     <td>{{item.field}}</td>
                     <td>{{item.option}}</td>
                     <td>{{item.value}}</td>
+                    <td *ngIf="item.value1">{{item.value1}}</td>
                 </tr>
             </table>
         </div>

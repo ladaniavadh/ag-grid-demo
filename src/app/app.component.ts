@@ -54,11 +54,16 @@ export class AppComponent implements OnInit {
         }
     }
 
+    onSelectOperator(option,i) {
+        this.initItemRows()
+    }
+
     initItemRows() {
         return this.formBuilder.group({
             field:null,
             option:null,
             value:null,
+            value1:null,
             meta:null
         })
     }
@@ -90,8 +95,43 @@ export class AppComponent implements OnInit {
      // END FROM HERE
 
      printData() {
-         console.log(this.addMore.value);
+         const formsValue = this.addMore.value.itemRows;
+         console.log(formsValue);
          
+         let filterString = ''
+         formsValue.forEach(element => {
+             if (filterString !== '') {
+                filterString = filterString + '&'
+             }
+            console.log(element.value1);
+            
+            if(!element.value1) {
+                filterString = filterString + this.setFilterParam(element.field.searchField, element.option) + '=' + element.value
+            } else {
+                filterString = filterString + element.field.searchField + '_gte' + '=' + element.value + '&' + element.field.searchField + '_lte' + '=' + element.value1
+            }
+         });
+         console.log(filterString);
+         const url = 'https://my-json-server.typicode.com/ladaniavadh/ag-grid-demo/athletes?' + filterString
+         this.http.get(url).subscribe(data =>{
+            this.gridApi.setRowData(data);
+        });
+     }
+
+     setFilterParam(field, option) {
+        switch (option) {
+            case 'Equals':
+                return field
+                break;
+            case 'Less than':
+                return field + '_lte'
+                break;
+            case 'Greater than':
+                return field + '_gte'
+                break;
+            case 'Not Contains':
+                return field + '_ne'
+        }
      }
 
     onGridReady(param) {

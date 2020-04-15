@@ -2,10 +2,10 @@
     "title": "Advanced Search Configuration object",
     "searchTypeKey ": "Claimant",
     "searchFieldGroup": [{
-            "fieldKey": "FirstName",
-            "searchField": "FirstName",
-            "label": "First Name",
-            "toolTip": "Search by the Claimant's First name",
+            "fieldKey": "Athlete",
+            "searchField": "athlete",
+            "label": "Athlete",
+            "toolTip": "Search by the Athlete's name",
             "type": "string",
             "inputType": "text",
             "validationOptions": {
@@ -24,16 +24,45 @@
                 },
                 {
                     "Operator": "Equals"
+                },
+                {
+                    "Operator": "Not Contains"
+                }
+            ]
+        },
+        {
+            "fieldKey": "Age",
+            "searchField": "age",
+            "label": "Age",
+            "toolTip": "Search by the Claimant's First name",
+            "type": "string",
+            "inputType": "text",
+            "validationOptions": {
+                "max": 99999,
+                "min": 0,
+                "pattern": "\\d{5}"
+            },
+            "searchOperators": [{
+                    "Operator": "Equals"
+                },
+                {
+                    "Operator": "Less than"
+                },
+                {
+                    "Operator": "Greater than"
+                },
+                {
+                    "Operator": "Betweens"
                 }
             ]
         },
         {
             "fieldKey": "DOB",
-            "searchField": "DOB",
+            "searchField": "date",
             "label": "Date Of Birth",
             "toolTip": "Search by the Claimant's Date of Birth",
             "type": "string",
-            "inputType": "date",
+            "inputType": "text",
             "validationOptions": {
                 "max": 99999,
                 "min": 0,
