@@ -1,6 +1,8 @@
 # AgGridDemo
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
+This Project Containse the implementation of ag-grid Demo, ReactiveForms integration and Update the ag-grid based on filter values
+
 
 ## Development server
 
